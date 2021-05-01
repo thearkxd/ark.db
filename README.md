@@ -2,6 +2,12 @@
 
 **ark.db** module was written to save your data in json file.
 
+## Info
+<img src="https://img.shields.io/npm/v/ark.db?color=%2351F9C0&label=Ark.db">
+<img src="https://img.shields.io/npm/dt/ark.db.svg?color=%2351FC0&maxAge=3600">
+<br>
+<img src="https://nodei.co/npm/ark.db.png?downloads=true&downloadRank=true&stars=true">
+
 ## Usage
 
 ```js
