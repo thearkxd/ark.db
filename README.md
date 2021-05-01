@@ -3,10 +3,30 @@
 **ark.db** module was written to save your data in json file.
 
 ## Info
-<img src="https://img.shields.io/npm/v/ark.db?color=%2351F9C0&label=Ark.db">
+<img src="https://img.shields.io/npm/v/ark.db?color=%2351F9C0&label=ark.db">
 <img src="https://img.shields.io/npm/dt/ark.db.svg?color=%2351FC0&maxAge=3600">
 <br>
 <img src="https://nodei.co/npm/ark.db.png?downloads=true&downloadRank=true&stars=true">
+
+# Why ark.db?
+* Fast
+* Lightweight
+* Asynchronous
+
+# Speed
+`ark.db` is faster than `wio.db` and `lowdb`.
+
+Benchmark results (When 100 elements are pushed into array);
+```
+~/Bench ❯ act -s "node arkdb.js"
+act: The process took 230ms to finish.
+
+~/Bench ❯ act -s "node lowdb.js"
+act: The process took 276ms to finish.
+
+~/Bench ❯ act -s "node wiodb.js"
+act: The process took 252ms to finish.
+```
 
 ## Usage
 
@@ -54,7 +74,10 @@ Thanks to [Stark](https://discord.com/users/332926821706498063) for his helpings
 
 ## Changelog
 
-## 1.1.1
+### 1.1.2
+* A little accelerated.
+
+### 1.1.1
 * Fixed some bugs.
 
 ### 1.1.0

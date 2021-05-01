@@ -1,6 +1,6 @@
 "use strict";
 
-const { existsSync, writeFileSync, readFileSync } = require("fs");
+const { existsSync, writeFileSync, readFileSync } = require("graceful-fs");
 const { _set, _get } = require("./Utils/Util");
 const Error = require("./Error");
 

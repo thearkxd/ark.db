@@ -1,7 +1,7 @@
 {
   "name": "ark.db",
   "description": "A simple JSON database module.",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "index.js",
   "keywords": [
     "quick.db",
@@ -22,7 +22,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "chalk": "^4.1.1"
+    "chalk": "^4.1.1",
+    "graceful-fs": "^4.2.6"
   },
   "devDependencies": {
     "eslint": "^7.25.0"
