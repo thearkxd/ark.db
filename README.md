@@ -16,34 +16,34 @@ const db = new Database();
 // If you want you specify the file to save the data like; new Database("myDatas");
 
 // To set your data to database;
-db.set("example", "test"); // returns -> test
+await db.set("example", "test"); // returns -> test
 
 // To get your data from database;
-db.get("example"); // returns -> test
+await db.get("example"); // returns -> test
 
 // To delete your data from database;
-db.delete("example"); // returns -> true
+await db.delete("example"); // returns -> true
 
 // To increase your data;
-db.add("example", 2); // returns -> 2
+await db.add("example", 2); // returns -> 2
 
 // To decrase your data;
-db.subtract("example", 1); // returns -> 1
+await db.subtract("example", 1); // returns -> 1
 
 // To learn database has the data;
-db.has("example"); // returns -> true
+await db.has("example"); // returns -> true
 
 // To push the data to database;
-db.push("example", { test: "test" }); // returns -> { test: "test" }
+await db.push("example", { test: "test" }); // returns -> { test: "test" }
 
 // To pull the data from database;
-db.pull("example", { test: "test" }); // returns -> []
+await db.pull("example", { test: "test" }); // returns -> []
 
 // To get all data from database;
-db.all();
+await db.all();
 
 // To delete all data in database;
-db.clear();
+await db.clear();
 ```
 
 ## Thanks
@@ -53,6 +53,9 @@ Thanks to [Stark](https://discord.com/users/332926821706498063) for his helpings
 [Discord Server](https://discord.gg/UEPcFtytcc), [Theark](https://discord.com/users/350976460313329665), [Stark](https://discord.com/users/332926821706498063)
 
 ## Changelog
+
+### 1.1.0
+* All methods are asynchronous.
 
 ### 1.0.0
 * Module published.
