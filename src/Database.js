@@ -27,9 +27,9 @@ module.exports = class Database {
      * @returns { Promise }
      */
     get(key) {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve) => {
             if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-            const result = _get(key, this.read() || {});
+            const result = _get(key, await this.read() || {});
             resolve(result ? result : undefined);
         });
     }
@@ -41,9 +41,9 @@ module.exports = class Database {
      * @returns { Promise }
      */
     has(key) {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
             if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-            resolve(!!this.get(key));
+            resolve(!!(await this.get(key)));
         });
     }
 
@@ -55,10 +55,10 @@ module.exports = class Database {
      * @returns { Promise }
      */
     set(key, value) {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
             if (!key || typeof key !== "string") throw new DbError("Please specify a valid key!");
             if (!value) throw new Error("Please specify a valid value!");
-            const data = this.read() || {};
+            const data = await this.read() || {};
             const newData = _set(key, value, data);
             writeFileSync(this.#dbFilePath, JSON.stringify(newData, null, 2), { encoding: "utf-8" });
             resolve(_get(key.split(".")[0], newData));
@@ -72,9 +72,9 @@ module.exports = class Database {
      * @returns { Promise }
      */
     delete(key) {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
             if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-            let data = this.read() || {};
+            let data = await this.read() || {};
             const locations = key.split(".");
             for (var i = 0; i < locations.length - 1; i++) {
                 data = data[locations[i]] || undefined;
@@ -95,13 +95,13 @@ module.exports = class Database {
      * @returns { Promise }
      */
     add(key, count) {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
             if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
             if (!count || typeof count === "string") throw new Error("Please specify a valid count!");
-            const data = this.get(key) || 0;
+            const data = await this.get(key) || 0;
             if (isNaN(data)) throw new Error("The data is not a number!");
             const newData = data + count;
-            this.set(key, newData);
+            await this.set(key, newData);
             resolve(newData);
         });
     }
@@ -114,13 +114,13 @@ module.exports = class Database {
      * @returns { Promise }
      */
     subtract(key, count) {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
             if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
             if (!count || typeof count === "string") throw new Error("Please specify a valid count!");
-            const data = this.get(key) || 0;
+            const data = await this.get(key) || 0;
             if (isNaN(data)) throw new Error("The data is not a number!");
             const newData = data - count;
-            this.set(key, newData);
+            await this.set(key, newData);
             resolve(newData);
         });
     }
@@ -133,14 +133,14 @@ module.exports = class Database {
      * @returns { Promise }
      */
     push(key, el) {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
             if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
             if (!el) throw new Error("Please specify a valid element to push!");
-            const data = this.get(key) || [];
+            const data = await this.get(key) || [];
             if (!Array.isArray(data)) throw new Error("The data is not a array!");
             data.push(el);
-            this.set(key, data);
-            resolve(this.get(key.split(".")[0], data));
+            await this.set(key, data);
+            resolve(await this.get(key.split(".")[0], data));
         });
     }
 
@@ -152,15 +152,15 @@ module.exports = class Database {
      * @returns { Promise }
      */
     pull(key, el) {
-        return new Promise((resolve) => {
+        return new Promise(async (resolve) => {
             if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
             if (!el) throw new Error("Please specify a valid element to pull!");
-            const data = this.get(key) || [];
+            const data = await this.get(key) || [];
             if (!Array.isArray(data)) throw new Error("The data is not a array!");
             if (!data.includes(el)) throw new Error("The element you specified does not exist in array.");
             const newData = data.filter((x) => !x.includes(el));
-            this.set(key, newData);
-            resolve(this.get(key.split(".")[0], newData));
+            await this.set(key, newData);
+            resolve(await this.get(key.split(".")[0], newData));
         });
     }
 
@@ -170,10 +170,10 @@ module.exports = class Database {
      * @returns { Promise }
      */
     all() {
-        return new Promise((resolve) => {
-            const data = this.read() || {};
+        return new Promise(async (resolve) => {
+            const data = await this.read() || {};
             const resp = [];
-            Object.keys(data).forEach((x) => resp.push({ ID: x, data: this.get(x) }));
+            Object.keys(data).forEach(async (x) => resp.push({ ID: x, data: await this.get(x) }));
             resolve(resp);
         });
     }

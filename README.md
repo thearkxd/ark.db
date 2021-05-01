@@ -54,6 +54,9 @@ Thanks to [Stark](https://discord.com/users/332926821706498063) for his helpings
 
 ## Changelog
 
+## 1.1.1
+* Fixed some bugs.
+
 ### 1.1.0
 * All methods are asynchronous.
 
