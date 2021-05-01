@@ -2,31 +2,31 @@ const Database = require("../src/Database");
 const db = new Database("database.json");
 
 // Set a value
-db.set("example", "test");
+await db.set("example", "test");
 
 // Delete a value from database
-db.delete("example");
+await db.delete("example");
 
 // Get a value
-db.get("example");
+await db.get("example");
 
 // Get is database has the value
-db.has("example");
+await db.has("example");
 
 // Add a value to data
-db.add("example", 1);
+await db.add("example", 1);
 
 // Subtract a value from data
-db.subtract("example", 1);
+await db.subtract("example", 1);
 
 // Push a value to data
-db.push("example", { test: "example" });
+await db.push("example", { test: "example" });
 
 // Pull a value from data
-db.pull("example", { test: "example" });
+await db.pull("example", { test: "example" });
 
 // Get all data from database
-db.all();
+await db.all();
 
 // Delete all data from database
-db.clear();
+await db.clear();
