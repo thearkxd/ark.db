@@ -1,4 +1,4 @@
-# Welcome to arks.db
+# Welcome to ark.db
 
 **ark.db** module was written to save your data in json file.
 
