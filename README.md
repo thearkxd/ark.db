@@ -8,71 +8,75 @@
 <br>
 <img src="https://nodei.co/npm/ark.db.png?downloads=true&downloadRank=true&stars=true">
 
+# Warning!
+`ark.db` is requires node.js version greater than 12!
+
 # Why ark.db?
-* Fast
+* Fastest JSON database module in NPM.
 * Lightweight
-* Asynchronous
 
 # Speed
-`ark.db` is faster than `wio.db` and `lowdb`.
-
-Benchmark results (When 100 elements are pushed into array);
+Benchmark results (When 1000 elements are pushed into array);
 ```
-~/Bench ❯ act -s "node arkdb.js"
-act: The process took 230ms to finish.
+laark ~/Bench ❯ act -s "node arkdb.js"
+act: The process took 478ms to finish.
 
-~/Bench ❯ act -s "node lowdb.js"
-act: The process took 276ms to finish.
+laark ~/Bench ❯ act -s "node lowdb.js"
+act: The process took 577ms to finish.
 
-~/Bench ❯ act -s "node wiodb.js"
-act: The process took 252ms to finish.
+laark ~/Bench ❯ act -s "node wiodb.js"
+act: The process took 871ms to finish.
+
+laark ~/Bench ❯ act -s "node megadb.js"
+act: The process took 541ms to finish.
 ```
 
 ## Usage
 
 ```js
-const { Database } = require("arks.db");
+const { Database } = require("ark.db");
 const db = new Database();
 // If you want you specify the file to save the data like; new Database("myDatas");
 
 // To set your data to database;
-await db.set("example", "test"); // returns -> test
+db.set("example", "test"); // returns -> test
 
 // To get your data from database;
-await db.get("example"); // returns -> test
+db.get("example"); // returns -> test
 
 // To delete your data from database;
-await db.delete("example"); // returns -> true
+db.delete("example"); // returns -> true
 
 // To increase your data;
-await db.add("example", 2); // returns -> 2
+db.add("example", 2); // returns -> 2
 
 // To decrase your data;
-await db.subtract("example", 1); // returns -> 1
+db.subtract("example", 1); // returns -> 1
 
 // To learn database has the data;
-await db.has("example"); // returns -> true
+db.has("example"); // returns -> true
 
 // To push the data to database;
-await db.push("example", { test: "test" }); // returns -> { test: "test" }
-
-// To pull the data from database;
-await db.pull("example", { test: "test" }); // returns -> []
+db.push("example", { test: "test" }); // returns -> { test: "test" }
 
 // To get all data from database;
-await db.all();
+db.all();
 
 // To delete all data in database;
-await db.clear();
+db.clear();
 ```
 
 ## Thanks
-Thanks to [Stark](https://discord.com/users/332926821706498063) for his helpings.
+Thanks to [Stark](https://discord.com/users/332926821706498063) and [Laark](https://discord.com/users/814919032884428840) for his/her helpings.
 
 ## Contact
-[Discord Server](https://discord.gg/UEPcFtytcc), [Theark](https://discord.com/users/350976460313329665), [Stark](https://discord.com/users/332926821706498063)
+[Discord Server](https://discord.gg/UEPcFtytcc), [Theark](https://discord.com/users/350976460313329665), [Stark](https://discord.com/users/332926821706498063), [Laark](https://discord.com/users/814919032884428840)
 
 ## Changelog
+
+### 2.0.0
+* Large-scale optimizations have been made.
+* All methods are synchronous.
 
 ### 1.1.2
 * A little accelerated.
