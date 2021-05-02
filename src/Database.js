@@ -5,200 +5,152 @@ const { _set, _get } = require("./Utils/Util");
 const Error = require("./Error");
 
 module.exports = class Database {
-    /** @type { String } @private */
-    #dbFilePath;
+  #dbFilePath;
+  #jsonData;
 
-    /**
-     * @param { String } fileName
-     * @constructor
-     */
-    constructor(fileName = "database.json") {
-        if (typeof fileName !== "string") throw new Error("Please specify a valid database name!");
-        this.#dbFilePath = fileName.endsWith(".json") ? `${process.cwd()}/${fileName}` : `${process.cwd()}/${fileName}.json`;
-        if (!existsSync(this.#dbFilePath)) {
-            writeFileSync(this.#dbFilePath, "{}", "utf-8");
-        }
+  /*
+   * @constructor
+   * @param {string} file - Database file path
+   * */
+  constructor(file = "arkdb.json") {
+    if (typeof file !== "string") {
+      throw new Error("Please specify a valid database name!");
     }
 
-    /**
-     * Gets the element from db.
-     * @param { String } key
-     * @example db.get("example");
-     * @returns { Promise }
-     */
-    get(key) {
-        return new Promise(async (resolve) => {
-            if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-            const result = _get(key, await this.read() || {});
-            resolve(result ? result : undefined);
-        });
+    this.#dbFilePath = file.endsWith(".json") ? `${process.cwd()}/${file}` : `${process.cwd()}/${file}.json`;
+    this.#jsonData = {};
+
+    if(existsSync(this.#dbFilePath)) {
+      this.#jsonData = this.read();
+    } else {
+      writeFileSync(this.#dbFilePath, "{}", "utf-8");
+    }
+  }
+
+  /*
+   * @param {string} key
+   * @return {*}
+   * */
+  get(key) {
+    return _get(key, this.#jsonData) || null;
+  }
+
+  /*
+   * @param {string} key
+   * @return {boolean}
+   * */
+  has(key) {
+    if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
+    return !!(_get(key, this.#jsonData));
+  }
+
+  /*
+   * @param {string} key
+   * @param {*} value
+   * @return {*}
+   * */
+  set(key, value) {
+    if (!key || typeof key !== "string") throw new DbError("Please specify a valid key!");
+    if (!value) throw new Error("Please specify a valid value!");
+
+    _set(key, value, this.#jsonData);
+    this.write();
+    return _get(key.split(".")[0], this.#jsonData);
+  }
+
+  /*
+   * Writes current JSON data to database file.
+   * */
+  write() {
+    writeFileSync(this.#dbFilePath, JSON.stringify(this.#jsonData, null, 2));
+  }
+
+  /*
+   * @param {string} key
+   * @return {boolean}
+   * */
+  delete(key) {
+    if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
+
+    let locations = key.split(".");
+    for(var i = 0; i < locations.length-1; i++) {
+      this.#jsonData = this.#jsonData[locations[i]] || {};
+      if(Object.keys(this.#jsonData).length === 0) return false;
     }
 
-    /**
-     * Gets is db has the element.
-     * @param { String } key
-     * @example db.has("example");
-     * @returns { Promise }
-     */
-    has(key) {
-        return new Promise(async (resolve) => {
-            if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-            resolve(!!(await this.get(key)));
-        });
-    }
+    delete this.#jsonData[locations[locations.length - 1]];
+    this.write();
+    return true;
+  }
 
-    /**
-     * Sets the element to db.
-     * @param { String } key
-     * @param { any } value
-     * @example db.set("example", "test");
-     * @returns { Promise }
-     */
-    set(key, value) {
-        return new Promise(async (resolve) => {
-            if (!key || typeof key !== "string") throw new DbError("Please specify a valid key!");
-            if (!value) throw new Error("Please specify a valid value!");
-            const data = await this.read() || {};
-            const newData = _set(key, value, data);
-            writeFileSync(this.#dbFilePath, JSON.stringify(newData, null, 2), { encoding: "utf-8" });
-            resolve(_get(key.split(".")[0], newData));
-        });
-    }
+  /*
+   * @param {string} key
+   * @param {number} count
+   * @return {number}
+   * */
+  add(key, count) {
+    if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
+    if (!count || typeof count === "string") throw new Error("Please specify a valid count!");
 
-    /**
-     * Deletes the element from db.
-     * @param { String } key
-     * @example db.delete("example");
-     * @returns { Promise }
-     */
-    delete(key) {
-        return new Promise(async (resolve) => {
-            if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-            let data = await this.read() || {};
-            const locations = key.split(".");
-            for (var i = 0; i < locations.length - 1; i++) {
-                data = data[locations[i]] || undefined;
-                if (!data) return undefined;
-            }
-            if (!data || !data[locations[locations.length - 1]]) throw new Error("There is no data with specified value");
-            delete data[locations[locations.length - 1]];
-            writeFileSync(this.#dbFilePath, JSON.stringify(data, null, 2), { encoding: "utf-8" });
-            resolve(true);
-        });
-    }
+    var data = this.#jsonData[key] || 0;
 
-    /**
-     * Adds the count to element.
-     * @param { String } key
-     * @param { Number } count
-     * @example db.add("example", 1);
-     * @returns { Promise }
-     */
-    add(key, count) {
-        return new Promise(async (resolve) => {
-            if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-            if (!count || typeof count === "string") throw new Error("Please specify a valid count!");
-            const data = await this.get(key) || 0;
-            if (isNaN(data)) throw new Error("The data is not a number!");
-            const newData = data + count;
-            await this.set(key, newData);
-            resolve(newData);
-        });
-    }
+    if (isNaN(data)) throw new Error("Data is not a number");
+    this.set(key, data + count);
+    return (data+count);
+  }
 
-    /**
-     * Subtracts the count from element.
-     * @param { String } key
-     * @param { Number } count
-     * @example db.subtract("example", 1);
-     * @returns { Promise }
-     */
-    subtract(key, count) {
-        return new Promise(async (resolve) => {
-            if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-            if (!count || typeof count === "string") throw new Error("Please specify a valid count!");
-            const data = await this.get(key) || 0;
-            if (isNaN(data)) throw new Error("The data is not a number!");
-            const newData = data - count;
-            await this.set(key, newData);
-            resolve(newData);
-        });
-    }
+  /*
+   * @param {string} key
+   * @param {number} count
+   * @return {number}
+   * */
+  subtract(key, count) {
+    if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
+    if (!count || typeof count === "string") throw new Error("Please specify a valid count!");
 
-    /**
-     * Pushes the element from db.
-     * @param { String } key
-     * @param { any } el
-     * @example db.push("example", "test");
-     * @returns { Promise }
-     */
-    push(key, el) {
-        return new Promise(async (resolve) => {
-            if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-            if (!el) throw new Error("Please specify a valid element to push!");
-            const data = await this.get(key) || [];
-            if (!Array.isArray(data)) throw new Error("The data is not a array!");
-            data.push(el);
-            await this.set(key, data);
-            resolve(await this.get(key.split(".")[0], data));
-        });
-    }
+    var data = this.#jsonData[key] || 0;
 
-    /**
-     * Pulls the element from db.
-     * @param { String } key
-     * @param { any } el
-     * @example db.pull("example", "test");
-     * @returns { Promise }
-     */
-    pull(key, el) {
-        return new Promise(async (resolve) => {
-            if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-            if (!el) throw new Error("Please specify a valid element to pull!");
-            const data = await this.get(key) || [];
-            if (!Array.isArray(data)) throw new Error("The data is not a array!");
-            if (!data.includes(el)) throw new Error("The element you specified does not exist in array.");
-            const newData = data.filter((x) => !x.includes(el));
-            await this.set(key, newData);
-            resolve(await this.get(key.split(".")[0], newData));
-        });
-    }
+    if (isNaN(data)) throw new Error("Data is not a number");
+    this.set(key, data - count);
+    return (data-count);
+  }
 
-    /**
-     * Gets all elements from db.
-     * @example db.all();
-     * @returns { Promise }
-     */
-    all() {
-        return new Promise(async (resolve) => {
-            const data = await this.read() || {};
-            const resp = [];
-            Object.keys(data).forEach(async (x) => resp.push({ ID: x, data: await this.get(x) }));
-            resolve(resp);
-        });
-    }
+  /*
+   * @param {string} key
+   * @param {*} el
+   * @return {*}
+   * */
+  push(key, el) {
+    var data = this.#jsonData[key] || [];
+    if (!Array.isArray(data)) throw new Error("Data is not a array");
+    data.push(el);
+    this.set(key, data);
+    return data;
+  }
 
-    /**
-     * Deletes all elements from db.
-     * @example db.clear();
-     * @returns { Promise }
-     */
-    clear() {
-        return new Prmoise((resolve) => {
-            writeFileSync(this.#dbFilePath, JSON.stringify({}), { encoding: "utf-8" });
-            resolve(true);
-        });
-    }
+  /*
+   * @return {object}
+   * */
+  all() {
+    return this.#jsonData;
+  }
 
-    /**
-     * Gets all elements from db as an Object.
-     * @example db.read();
-     * @returns { Promise }
-     */
-    read() {
-        return new Promise((resolve) => {
-            const data = readFileSync(this.#dbFilePath, { encoding: "utf-8" }) || {};
-            resolve(JSON.parse(data));
-        });
-    }
-};
+  /*
+   * @return {boolean}
+   * */
+  clear() {
+    this.#jsonData = {};
+    this.write();
+    return true;
+  }
+
+  /*
+   * @return {object}
+   * */
+  read() {
+    return JSON.parse(
+      readFileSync(this.#dbFilePath, { encoding: 'utf-8' }) || '{}'
+    );
+  }
+}
+
