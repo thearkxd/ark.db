@@ -1,8 +1,11 @@
 "use strict";
 
 const { existsSync, writeFileSync, readFileSync } = require("graceful-fs");
-const { _set, _get } = require("./Utils/Util");
 const Error = require("./Error");
+const getData = require('lodash/get');
+const setData = require('lodash/set');
+const hasData = require('lodash/has');
+const unset = require('lodash/unset');
 
 module.exports = class Database {
   /** @type { String } @private */
@@ -18,12 +21,8 @@ module.exports = class Database {
     if (typeof file !== "string") throw new Error("Please specify a valid database name!");
     this.#dbFilePath = file.endsWith(".json") ? `${process.cwd()}/${file}` : `${process.cwd()}/${file}.json`;
     this.#jsonData = {};
-
-    if (existsSync(this.#dbFilePath)) {
-      this.#jsonData = this.read();
-    } else {
-      writeFileSync(this.#dbFilePath, "{}", "utf-8");
-    }
+    if (existsSync(this.#dbFilePath)) this.#jsonData = this.read();
+    else writeFileSync(this.#dbFilePath, "{}", "utf-8");
   }
 
   /**
@@ -31,7 +30,8 @@ module.exports = class Database {
    * @returns { any }
    */
   get(key) {
-    return _get(key, this.#jsonData) || null;
+    if (!key || typeof key !== "string") throw new DbError("Please specify a valid key!");
+    return getData(this.#jsonData, key) || null;
   }
 
   /**
@@ -40,7 +40,7 @@ module.exports = class Database {
    */
   has(key) {
     if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-    return !!(_get(key, this.#jsonData));
+    return hasData(this.#jsonData, key);
   }
 
   /**
@@ -51,10 +51,9 @@ module.exports = class Database {
   set(key, value) {
     if (!key || typeof key !== "string") throw new DbError("Please specify a valid key!");
     if (!value) throw new Error("Please specify a valid value!");
-
-    _set(key, value, this.#jsonData);
+    const newData = setData(this.#jsonData, key, value);
     this.write();
-    return _get(key.split(".")[0], this.#jsonData);
+    return newData[key];
   }
 
   /**
@@ -70,16 +69,9 @@ module.exports = class Database {
    */
   delete(key) {
     if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-
-    const locations = key.split(".");
-    for (var i = 0; i < locations.length-1; i++) {
-      this.#jsonData = this.#jsonData[locations[i]] || {};
-      if (Object.keys(this.#jsonData).length === 0) return false;
-    }
-
-    delete this.#jsonData[locations[locations.length - 1]];
+    const res = unset(this.#jsonData, key);
     this.write();
-    return true;
+    return res;
   }
 
   /**
@@ -89,7 +81,7 @@ module.exports = class Database {
    */
   add(key, count) {
     if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-    if (!count || typeof count === "string") throw new Error("Please specify a valid count!");
+    if (!count || typeof count !== "number") throw new Error("Please specify a valid count!");
     const data = this.#jsonData[key] || 0;
     if (isNaN(data)) throw new Error("Data is not a number");
     this.set(key, data + count);
@@ -103,11 +95,11 @@ module.exports = class Database {
    */
   subtract(key, count) {
     if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-    if (!count || typeof count === "string") throw new Error("Please specify a valid count!");
+    if (!count || typeof count !== "number") throw new Error("Please specify a valid count!");
     const data = this.#jsonData[key] || 0;
     if (isNaN(data)) throw new Error("Data is not a number");
     this.set(key, data - count);
-    return (data-count);
+    return (data - count);
   }
 
   /**
@@ -116,11 +108,28 @@ module.exports = class Database {
    * @returns { any }
    */
   push(key, el) {
+    if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
+    if (!el) throw new Error("Please specify a valid element to push!");
     const data = this.#jsonData[key] || [];
     if (!Array.isArray(data)) throw new Error("Data is not an array");
     data.push(el);
     this.set(key, data);
     return data;
+  }
+
+  /**
+   * @param { String } key
+   * @param { any } el
+   * @returns { "true" }
+   */
+  pull(key, el) {
+    if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
+    if (!el) throw new Error("Please specify a valid element to pull!");
+    const data = this.#jsonData[key] || [];
+    if (!Array.isArray(data)) throw new Error("The data is not a array!");
+    const newData = data.filter((x) => !x.includes(el));
+    this.set(key, newData);
+    return true;
   }
 
   /**
@@ -139,7 +148,7 @@ module.exports = class Database {
     return true;
   }
 
-  /*
+  /**
    * @returns { Object }
    */
   read() {

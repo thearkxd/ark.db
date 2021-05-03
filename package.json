@@ -1,7 +1,7 @@
 {
   "name": "ark.db",
   "description": "A simple JSON database module.",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "main": "index.js",
   "keywords": [
     "json",
@@ -20,7 +20,8 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.1",
-    "graceful-fs": "^4.2.6"
+    "graceful-fs": "^4.2.6",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "eslint": "^7.25.0"

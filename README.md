@@ -59,6 +59,9 @@ db.has("example"); // returns -> true
 // To push the data to database;
 db.push("example", { test: "test" }); // returns -> { test: "test" }
 
+// To pull the data from database;
+db.pull("example", { test: "test" }); // returns -> []
+
 // To get all data from database;
 db.all();
 
@@ -73,6 +76,10 @@ Thanks to [Stark](https://discord.com/users/332926821706498063) and [Laark](http
 [Discord Server](https://discord.gg/UEPcFtytcc), [Theark](https://discord.com/users/350976460313329665), [Stark](https://discord.com/users/332926821706498063), [Laark](https://discord.com/users/814919032884428840)
 
 ## Changelog
+
+### 2.1.0
+* Added pull method.
+* Get and set methods are accelerated.
 
 ### 2.0.0
 * Large-scale optimizations have been made.
