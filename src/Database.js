@@ -14,7 +14,7 @@ module.exports = class Database {
   #jsonData;
 
   /**
-   * @param { String } file 
+   * @param { String } file
    * @constructor
    */
   constructor(file = "arkdb.json") {
@@ -22,7 +22,7 @@ module.exports = class Database {
     this.#dbFilePath = file.endsWith(".json") ? `${process.cwd()}/${file}` : `${process.cwd()}/${file}.json`;
     this.#jsonData = {};
     if (existsSync(this.#dbFilePath)) this.#jsonData = this.read();
-    else writeFileSync(this.#dbFilePath, "{}", "utf-8");
+    writeFileSync(this.#dbFilePath, "{}", "utf-8");
   }
 
   /**
@@ -82,7 +82,7 @@ module.exports = class Database {
   add(key, count) {
     if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
     if (!count || typeof count !== "number") throw new Error("Please specify a valid count!");
-    const data = this.#jsonData[key] || 0;
+    const data = getData(this.#jsonData, key) || 0;
     if (isNaN(data)) throw new Error("Data is not a number");
     this.set(key, data + count);
     return (data + count);
@@ -96,7 +96,7 @@ module.exports = class Database {
   subtract(key, count) {
     if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
     if (!count || typeof count !== "number") throw new Error("Please specify a valid count!");
-    const data = this.#jsonData[key] || 0;
+    const data = getData(this.#jsonData, key) || 0;
     if (isNaN(data)) throw new Error("Data is not a number");
     this.set(key, data - count);
     return (data - count);
@@ -110,7 +110,7 @@ module.exports = class Database {
   push(key, el) {
     if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
     if (!el) throw new Error("Please specify a valid element to push!");
-    const data = this.#jsonData[key] || [];
+    const data = getData(this.#jsonData, key) || [];
     if (!Array.isArray(data)) throw new Error("Data is not an array");
     data.push(el);
     this.set(key, data);
@@ -125,7 +125,7 @@ module.exports = class Database {
   pull(key, el) {
     if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
     if (!el) throw new Error("Please specify a valid element to pull!");
-    const data = this.#jsonData[key] || [];
+    const data = getData(this.#jsonData, key) || [];
     if (!Array.isArray(data)) throw new Error("The data is not a array!");
     const newData = data.filter((x) => !x.includes(el));
     this.set(key, newData);
