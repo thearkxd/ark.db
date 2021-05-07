@@ -30,7 +30,7 @@ module.exports = class Database {
    * @returns { any }
    */
   get(key) {
-    if (!key || typeof key !== "string") throw new DbError("Please specify a valid key!");
+    if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
     return getData(this.#jsonData, key) || null;
   }
 
@@ -49,7 +49,7 @@ module.exports = class Database {
    * @returns { any }
    */
   set(key, value) {
-    if (!key || typeof key !== "string") throw new DbError("Please specify a valid key!");
+    if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
     if (!value) throw new Error("Please specify a valid value!");
     const newData = setData(this.#jsonData, key, value);
     this.write();

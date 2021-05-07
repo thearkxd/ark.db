@@ -77,6 +77,9 @@ Thanks to [Stark](https://discord.com/users/332926821706498063) and [Laark](http
 
 ## Changelog
 
+## 2.1.1
+* Fixed a bug.
+
 ### 2.1.0
 * Added pull method.
 * Get and set methods are accelerated.
