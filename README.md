@@ -77,6 +77,9 @@ Thanks to [Stark](https://discord.com/users/332926821706498063) and [Laark](http
 
 ## Changelog
 
+## 2.3.0
+* Fixed a bug.
+
 ## 2.2.0
 * Fixed a bug.
 
