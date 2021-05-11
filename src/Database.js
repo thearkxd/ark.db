@@ -2,10 +2,10 @@
 
 const { existsSync, writeFileSync, readFileSync } = require("graceful-fs");
 const Error = require("./Error");
-const getData = require('lodash/get');
-const setData = require('lodash/set');
-const hasData = require('lodash/has');
-const unset = require('lodash/unset');
+const getData = require("lodash/get");
+const setData = require("lodash/set");
+const hasData = require("lodash/has");
+const unset = require("lodash/unset");
 
 module.exports = class Database {
   /** @type { String } @private */
@@ -22,7 +22,7 @@ module.exports = class Database {
     this.#dbFilePath = file.endsWith(".json") ? `${process.cwd()}/${file}` : `${process.cwd()}/${file}.json`;
     this.#jsonData = {};
     if (existsSync(this.#dbFilePath)) this.#jsonData = this.read();
-    writeFileSync(this.#dbFilePath, "{}", "utf-8");
+    else writeFileSync(this.#dbFilePath, "{}", "utf-8");
   }
 
   /**
@@ -152,6 +152,6 @@ module.exports = class Database {
    * @returns { Object }
    */
   read() {
-    return JSON.parse(readFileSync(this.#dbFilePath, { encoding: 'utf-8' }) || '{}');
+    return JSON.parse(readFileSync(this.#dbFilePath, { encoding: "utf-8" }) || "{}");
   }
 };
