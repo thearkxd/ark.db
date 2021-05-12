@@ -53,7 +53,7 @@ module.exports = class Database {
     if (!value) throw new Error("Please specify a valid value!");
     const newData = setData(this.#jsonData, key, value);
     this.write();
-    return newData[key];
+    return newData[key.split(".")[0]];
   }
 
   /**
@@ -109,7 +109,7 @@ module.exports = class Database {
    */
   push(key, el) {
     if (!key || typeof key !== "string") throw new Error("Please specify a valid key!");
-    if (!el) throw new Error("Please specify a valid element to push!");
+    if (el !== 0 && !el && typeof el !== "boolean") throw new Error("Please specify a valid element to push!");
     const data = getData(this.#jsonData, key) || [];
     if (!Array.isArray(data)) throw new Error("Data is not an array");
     data.push(el);

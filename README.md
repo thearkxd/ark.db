@@ -70,12 +70,15 @@ db.clear();
 ```
 
 ## Thanks
-Thanks to [Stark](https://discord.com/users/332926821706498063) and [Laark](https://discord.com/users/814919032884428840) for his/her helpings.
+Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https://discord.com/users/814919032884428840) and [hmal](https://discord.com/users/337967184070311936) for his/her helpings.
 
 ## Contact
 [Discord Server](https://discord.gg/UEPcFtytcc), [Theark](https://discord.com/users/350976460313329665), [Stark](https://discord.com/users/332926821706498063), [Laark](https://discord.com/users/814919032884428840)
 
 ## Changelog
+
+## 2.3.1
+* Fixed multiple bugs.
 
 ## 2.3.0
 * Fixed a bug.
