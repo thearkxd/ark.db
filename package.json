@@ -1,37 +1,37 @@
 {
-  "name": "ark.db",
-  "description": "A simple JSON database module.",
-  "version": "2.4.0",
-  "main": "src/index.js",
-  "keywords": [
-    "json",
-    "jsondb",
-    "ark",
-    "arks",
-    "theark",
-    "stark",
-    "thearkxd",
-    "starkxd"
-  ],
-  "scripts": {
-    "test": "node test/test.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/thearkxd/ark.db"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "chalk": "^4.1.1",
-    "graceful-fs": "^4.2.6",
-    "lodash.get": "^4.4.2",
-    "lodash.has": "^4.5.2",
-    "lodash.set": "^4.3.2",
-    "lodash.unset": "^4.5.2",
-    "parent-module": "^2.0.0"
-  },
-  "devDependencies": {
-    "eslint": "^7.25.0",
-    "prettier": "^2.3.0"
-  }
+	"name": "ark.db",
+	"description": "A simple JSON database module.",
+	"version": "2.4.0",
+	"main": "src",
+	"keywords": [
+		"json",
+		"jsondb",
+		"ark",
+		"arks",
+		"theark",
+		"stark",
+		"thearkxd",
+		"starkxd"
+	],
+	"scripts": {
+		"test": "node test/test.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/thearkxd/ark.db"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"chalk": "^4.1.1",
+		"graceful-fs": "^4.2.6",
+		"lodash.get": "^4.4.2",
+		"lodash.has": "^4.5.2",
+		"lodash.set": "^4.3.2",
+		"lodash.unset": "^4.5.2",
+		"parent-module": "^2.0.0"
+	},
+	"devDependencies": {
+		"eslint": "^7.25.0",
+		"prettier": "^2.3.0"
+	}
 }
