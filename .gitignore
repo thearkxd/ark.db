@@ -5,4 +5,4 @@ package-lock.json
 .vscode
 database.json
 *.swp
-
+arkdb.json

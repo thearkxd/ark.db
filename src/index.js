@@ -1,3 +1,3 @@
-exports = {
-	Database: require("./Database")
+module.exports = {
+	Database: require("./Database"),
 };
