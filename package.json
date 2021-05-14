@@ -1,8 +1,8 @@
 {
   "name": "ark.db",
   "description": "A simple JSON database module.",
-  "version": "2.3.1",
-  "main": "index.js",
+  "version": "2.4.0",
+  "main": "src/index.js",
   "keywords": [
     "json",
     "jsondb",
@@ -13,6 +13,9 @@
     "thearkxd",
     "starkxd"
   ],
+  "scripts": {
+    "test": "node test/test.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/thearkxd/ark.db"
@@ -21,9 +24,11 @@
   "dependencies": {
     "chalk": "^4.1.1",
     "graceful-fs": "^4.2.6",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "parent-module": "^2.0.0"
   },
   "devDependencies": {
-    "eslint": "^7.25.0"
+    "eslint": "^7.25.0",
+    "prettier": "^2.3.0"
   }
 }
