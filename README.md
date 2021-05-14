@@ -15,12 +15,13 @@
 
 # Why ark.db?
 
-* Fastest JSON database module in NPM.
-* Lightweight
+-   Fastest JSON database module in NPM.
+-   Lightweight
 
 # Speed
 
 Benchmark results (When 1000 elements are pushed into array);
+
 ```
 laark ~/Bench ❯ act -s "node arkdb.js"
 act: The process took 478ms to finish.
@@ -85,47 +86,47 @@ Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https:/
 
 ### 2.4.0
 
-* Added `pretty` and `write` properties to some methods.
-* Added `relative path` feature.
+-   Added `pretty` and `write` properties to some methods.
+-   Added `relative path` feature.
 
 ### 2.3.1
 
-* Fixed multiple bugs.
+-   Fixed multiple bugs.
 
 ### 2.3.0
 
-* Fixed a bug.
+-   Fixed a bug.
 
 ### 2.2.0
 
-* Fixed a bug.
+-   Fixed a bug.
 
 ### 2.1.1
 
-* Fixed a bug.
+-   Fixed a bug.
 
 ### 2.1.0
 
-* Added pull method.
-* Get and set methods are accelerated.
+-   Added pull method.
+-   Get and set methods are accelerated.
 
 ### 2.0.0
 
-* Large-scale optimizations have been made.
-* All methods are synchronous.
+-   Large-scale optimizations have been made.
+-   All methods are synchronous.
 
 ### 1.1.2
 
-* A little accelerated.
+-   A little accelerated.
 
 ### 1.1.1
 
-* Fixed some bugs.
+-   Fixed some bugs.
 
 ### 1.1.0
 
-* All methods are asynchronous.
+-   All methods are asynchronous.
 
 ### 1.0.0
 
-* Module published.
+-   Module published.

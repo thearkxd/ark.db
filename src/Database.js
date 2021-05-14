@@ -5,7 +5,7 @@ const parentModule = require("parent-module");
 const path = require("path");
 const {
 	absolute,
-	lodash: { get, has, set, unset },
+	lodash: { get, has, set, unset }
 } = require("./Util");
 const Error = require("./Error");
 
@@ -186,7 +186,7 @@ module.exports = class Database {
 	 */
 	read() {
 		return JSON.parse(
-			readFileSync(this.#dbFilePath, { encoding: "utf-8" }) || "{}",
+			readFileSync(this.#dbFilePath, { encoding: "utf-8" }) || "{}"
 		);
 	}
 };

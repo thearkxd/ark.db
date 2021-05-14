@@ -14,7 +14,8 @@
 		"starkxd"
 	],
 	"scripts": {
-		"test": "node test/test.js"
+		"test": "node test/test.js",
+		"format": "prettier --write ."
 	},
 	"repository": {
 		"type": "git",
