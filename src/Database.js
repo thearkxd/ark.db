@@ -1,11 +1,13 @@
 "use strict";
 
 const { existsSync, writeFileSync, readFileSync } = require("graceful-fs");
-const Error = require("./Error");
-const { get, has, set, unset } = require("./Util/lodash");
-const path = require("path");
-const { absolute } = require("./Util/Util");
 const parentModule = require("parent-module");
+const path = require("path");
+const {
+	absolute,
+	lodash: { get, has, set, unset },
+} = require("./Util");
+const Error = require("./Error");
 
 module.exports = class Database {
 	/**
@@ -42,7 +44,7 @@ module.exports = class Database {
 	get(key) {
 		if (!key || typeof key !== "string")
 			throw new Error("Please specify a valid key!");
-		return get(this.#jsonData, key) || null;
+		return get(this.#jsonData, key);
 	}
 
 	/**
@@ -67,7 +69,7 @@ module.exports = class Database {
 		if (!value) throw new Error("Please specify a valid value!");
 		const newData = set(this.#jsonData, key, value);
 		if (options.write) this.write(options);
-		return newData[key.split(".")[0]];
+		return this.get(key);
 	}
 
 	/**
@@ -184,7 +186,7 @@ module.exports = class Database {
 	 */
 	read() {
 		return JSON.parse(
-			readFileSync(this.#dbFilePath, { encoding: "utf-8" }) || "{}"
+			readFileSync(this.#dbFilePath, { encoding: "utf-8" }) || "{}",
 		);
 	}
 };
