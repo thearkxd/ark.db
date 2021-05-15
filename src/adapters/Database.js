@@ -6,8 +6,8 @@ const path = require("path");
 const {
 	absolute,
 	lodash: { get, has, set, unset }
-} = require("./Util");
-const Error = require("./Error");
+} = require("../Util");
+const Error = require("../Util/Error");
 
 module.exports = class Database {
 	/**
@@ -67,7 +67,7 @@ module.exports = class Database {
 		if (!key || typeof key !== "string")
 			throw new Error("Please specify a valid key!");
 		if (!value) throw new Error("Please specify a valid value!");
-		const newData = set(this.#jsonData, key, value);
+		set(this.#jsonData, key, value);
 		if (options.write) this.write(options);
 		return this.get(key);
 	}
@@ -91,9 +91,9 @@ module.exports = class Database {
 	delete(key, options = { write: true, pretty: true }) {
 		if (!key || typeof key !== "string")
 			throw new Error("Please specify a valid key!");
-		const res = unset(this.#jsonData, key);
+		unset(this.#jsonData, key);
 		if (options.write) this.write(options);
-		return res;
+		return true;
 	}
 
 	/**

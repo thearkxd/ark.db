@@ -1,6 +1,5 @@
 const { expect } = require("chai");
 const { Database } = require("..");
-
 const db = new Database();
 
 describe("Basic Test", () => {

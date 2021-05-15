@@ -1,17 +1,29 @@
-# Welcome to ark.db
-
-**ark.db** module was written to save your data in json file.
-
-## Info
-
-<img src="https://img.shields.io/npm/v/ark.db?color=%2351F9C0&label=ark.db">
+# ark.db
+<img src="https://img.shields.io/npm/v/ark.db?color=%2351F9C0&label=version">
 <img src="https://img.shields.io/npm/dt/ark.db.svg?color=%2351FC0&maxAge=3600">
 <br>
 <img src="https://nodei.co/npm/ark.db.png?downloads=true&downloadRank=true&stars=true">
 
-# Warning!
+# Installation
+**Warning:** `ark.db` is requires node.js version greater than 12!
+```
+npm i ark.db
+```
 
-`ark.db` is requires node.js version greater than 12!
+Or, if you're using [yarn](https://yarnpkg.com/)
+
+```
+yarn add ark.db
+```
+
+Also, if you want to use `ark.db` in browser
+
+```html
+<script src="https://unpkg.com/ark.db@2.4.1/dist/LocalStorage.min.js"></script>
+<script>
+  const db = new LocalStorage();
+</script> 
+```
 
 # Why ark.db?
 
@@ -43,34 +55,34 @@ const { Database } = require("ark.db");
 const db = new Database();
 // If you want you specify the file to save the data like; new Database("myDatas");
 
-// To set your data to database;
-db.set("example", "test"); // returns -> test
+// To update or set your data;
+db.set("example", "test"); // -> test
 
-// To get your data from database;
-db.get("example"); // returns -> test
+// To get your data;
+db.get("example"); // -> test
 
-// To delete your data from database;
-db.delete("example"); // returns -> true
+// To delete your data;
+db.delete("example"); // -> true
 
 // To increase your data;
-db.add("example", 2); // returns -> 2
+db.add("example", 2); // -> 2
 
 // To decrase your data;
-db.subtract("example", 1); // returns -> 1
+db.subtract("example", 1); // -> 1
 
 // To learn database has the data;
-db.has("example"); // returns -> true
+db.has("example"); // -> true
 
-// To push the data to database;
-db.push("example", { test: "test" }); // returns -> { test: "test" }
+// To push the data;
+db.push("example", { test: "test" }); // -> { test: "test" }
 
-// To pull the data from database;
-db.pull("example", { test: "test" }); // returns -> []
+// To pull the data;
+db.pull("example", { test: "test" }); // -> []
 
-// To get all data from database;
+// To get all data;
 db.all();
 
-// To delete all data in database;
+// To delete all data;
 db.clear();
 ```
 
@@ -84,6 +96,10 @@ Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https:/
 
 ## Changelog
 
+### 2.4.1
+
+-   Added `LocalStorage` adapter.
+
 ### 2.4.0
 
 -   Added `pretty` and `write` properties to some methods.
@@ -93,15 +109,7 @@ Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https:/
 
 -   Fixed multiple bugs.
 
-### 2.3.0
-
--   Fixed a bug.
-
-### 2.2.0
-
--   Fixed a bug.
-
-### 2.1.1
+### 2.1.1, 2.0.0, 2.3.0
 
 -   Fixed a bug.
 
@@ -126,7 +134,3 @@ Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https:/
 ### 1.1.0
 
 -   All methods are asynchronous.
-
-### 1.0.0
-
--   Module published.

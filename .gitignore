@@ -6,3 +6,4 @@ package-lock.json
 database.json
 *.swp
 arkdb.json
+dist

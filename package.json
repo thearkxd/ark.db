@@ -1,7 +1,7 @@
 {
 	"name": "ark.db",
 	"description": "A simple JSON database module.",
-	"version": "2.4.0",
+	"version": "2.4.1",
 	"main": "src",
 	"keywords": [
 		"json",
@@ -15,7 +15,9 @@
 	],
 	"scripts": {
 		"test": "mocha tests/*.test.js",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"build": "webpack --mode production",
+		"build:dev": "webpack --mode development"
 	},
 	"repository": {
 		"type": "git",
@@ -32,9 +34,17 @@
 		"parent-module": "^2.0.0"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.14.2",
+		"@babel/preset-env": "^7.14.2",
+		"babel-cli": "^6.26.0",
+		"babel-core": "^6.26.3",
+		"babel-loader": "^8.2.2",
+		"babel-preset-env": "^1.7.0",
 		"chai": "^4.3.4",
 		"eslint": "^7.25.0",
 		"mocha": "^8.4.0",
-		"prettier": "^2.3.0"
+		"prettier": "^2.3.0",
+		"webpack": "^5.37.0",
+		"webpack-cli": "^4.7.0"
 	}
 }
