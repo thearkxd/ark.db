@@ -7,7 +7,7 @@ const {
 
 module.exports = class LocalStorage {
 	/**
-	 * @type { Object }
+	 * @type {Object}
 	 * @private
 	 */
 	#data;
@@ -23,25 +23,25 @@ module.exports = class LocalStorage {
 	}
 
 	/**
-	 * @param { String } key
-	 * @returns { any }
+	 * @param {String} key
+	 * @returns {any}
 	 */
 	get(key) {
 		return get(this.#data, key);
 	}
 
 	/**
-	 * @param { String } key
-	 * @returns { Boolean }
+	 * @param {String} key
+	 * @returns {Boolean}
 	 */
 	has(key) {
 		return has(this.#data, key);
 	}
 
 	/**
-	 * @param { String } key
-	 * @param { any } value
-	 * @returns { any }
+	 * @param {String} key
+	 * @param {any} value
+	 * @returns {any}
 	 */
 	set(key, value) {
 		if (!key || typeof key !== "string")
@@ -53,15 +53,15 @@ module.exports = class LocalStorage {
 	}
 
 	/**
-	 * @returns { void }
+	 * @returns {void}
 	 */
 	write() {
 		localStorage.setItem("arkdb", JSON.stringify(this.#data));
 	}
 
 	/**
-	 * @param { String } key
-	 * @returns { Boolean }
+	 * @param {String} key
+	 * @returns {Boolean}
 	 */
 	delete(key) {
 		if (!key || typeof key !== "string")
@@ -72,9 +72,9 @@ module.exports = class LocalStorage {
 	}
 
 	/**
-	 * @param { String } key
-	 * @param { Number } count
-	 * @returns { Number }
+	 * @param {String} key
+	 * @param {Number} count
+	 * @returns {Number}
 	 */
 	add(key, count) {
 		if (!key || typeof key !== "string")
@@ -87,9 +87,9 @@ module.exports = class LocalStorage {
 	}
 
 	/**
-	 * @param { String } key
-	 * @param { Number } count
-	 * @returns { Number }
+	 * @param {String} key
+	 * @param {Number} count
+	 * @returns {Number}
 	 */
 	subtract(key, count) {
 		if (!key || typeof key !== "string")
@@ -102,9 +102,9 @@ module.exports = class LocalStorage {
 	}
 
 	/**
-	 * @param { String } key
-	 * @param { any } el
-	 * @returns { any }
+	 * @param {String} key
+	 * @param {any} el
+	 * @returns {any}
 	 */
 	push(key, el) {
 		if (!key || typeof key !== "string")
@@ -118,9 +118,9 @@ module.exports = class LocalStorage {
 	}
 
 	/**
-	 * @param { String } key
-	 * @param { any } el
-	 * @returns { Boolean }
+	 * @param {String} key
+	 * @param {any} el
+	 * @returns {Boolean}
 	 */
 	pull(key, el) {
 		if (!key || typeof key !== "string")
@@ -133,7 +133,7 @@ module.exports = class LocalStorage {
 	}
 
 	/**
-	 * @returns { Boolean }
+	 * @returns {Boolean}
 	 */
 	clear() {
 		this.#data = {};

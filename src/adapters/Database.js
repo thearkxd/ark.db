@@ -11,35 +11,36 @@ const Error = require("../Util/Error");
 
 module.exports = class Database {
 	/**
-	 * @type { String }
+	 * @type {String}
 	 * @private
 	 */
 	#dbFilePath;
 	/**
-	 * @type { Object }
+	 * @type {Object}
 	 * @private
 	 */
 	#jsonData;
 
 	/**
-	 * @param { String } file
+	 * @param {String} file
 	 * @constructor
 	 */
 	constructor(file = "arkdb.json") {
 		if (typeof file !== "string")
 			throw new Error("Please specify a valid database name!");
 		file = file.endsWith(".json") ? file : `${file}.json`;
-		this.#dbFilePath = path.isAbsolute(file)
-			? `${process.cwd()}/${file}`
-			: absolute(path.dirname(parentModule()) + "/", file);
+		this.#dbFilePath =
+			file === "arkdb.json" || path.isAbsolute(file)
+				? `${process.cwd()}/${file}`
+				: absolute(path.dirname(parentModule()) + "/", file);
 		this.#jsonData = {};
 		if (existsSync(this.#dbFilePath)) this.#jsonData = this.read();
 		else writeFileSync(this.#dbFilePath, "{}", "utf-8");
 	}
 
 	/**
-	 * @param { String } key
-	 * @returns { any }
+	 * @param {String} key
+	 * @returns {any}
 	 */
 	get(key) {
 		if (!key || typeof key !== "string")
@@ -48,8 +49,16 @@ module.exports = class Database {
 	}
 
 	/**
-	 * @param { String } key
-	 * @returns { Boolean }
+	 * @param {String} key
+	 * @returns {any}
+	 */
+	fetch(key) {
+		return this.get(key);
+	}
+
+	/**
+	 * @param {String} key
+	 * @returns {Boolean}
 	 */
 	has(key) {
 		if (!key || typeof key !== "string")
@@ -58,10 +67,10 @@ module.exports = class Database {
 	}
 
 	/**
-	 * @param { String } key
-	 * @param { any } value
-	 * @param { Object } options
-	 * @returns { any }
+	 * @param {String} key
+	 * @param {any} value
+	 * @param {Object} options
+	 * @returns {any}
 	 */
 	set(key, value, options = { write: true, pretty: true }) {
 		if (!key || typeof key !== "string")
@@ -73,8 +82,8 @@ module.exports = class Database {
 	}
 
 	/**
-	 * @param { Object } options
-	 * @returns { void }
+	 * @param {Object} options
+	 * @returns {void}
 	 */
 	write(options = {}) {
 		const str = options.pretty
@@ -84,9 +93,9 @@ module.exports = class Database {
 	}
 
 	/**
-	 * @param { String } key
-	 * @param { Object } options
-	 * @returns { Boolean }
+	 * @param {String} key
+	 * @param {Object} options
+	 * @returns {Boolean}
 	 */
 	delete(key, options = { write: true, pretty: true }) {
 		if (!key || typeof key !== "string")
@@ -97,10 +106,10 @@ module.exports = class Database {
 	}
 
 	/**
-	 * @param { String } key
-	 * @param { Number } count
-	 * @param { Object } options
-	 * @returns { Number }
+	 * @param {String} key
+	 * @param {Number} count
+	 * @param {Object} options
+	 * @returns {Number}
 	 */
 	add(key, count, options = { write: true, pretty: true }) {
 		if (!key || typeof key !== "string")
@@ -108,16 +117,16 @@ module.exports = class Database {
 		if (!count || typeof count !== "number")
 			throw new Error("Please specify a valid count!");
 		const data = get(this.#jsonData, key) || 0;
-		if (isNaN(data)) throw new Error("Data is not a number");
+		if (isNaN(data)) throw new Error("Data is not a number!");
 		this.set(key, data + count, options);
 		return this.get(key);
 	}
 
 	/**
-	 * @param { String } key
-	 * @param { Number } count
-	 * @param { Object } options
-	 * @returns { Number }
+	 * @param {String} key
+	 * @param {Number} count
+	 * @param {Object} options
+	 * @returns {Number}
 	 */
 	subtract(key, count, options = { write: true, pretty: true }) {
 		if (!key || typeof key !== "string")
@@ -131,10 +140,10 @@ module.exports = class Database {
 	}
 
 	/**
-	 * @param { String } key
-	 * @param { any } el
-	 * @param { Object } options
-	 * @returns { any }
+	 * @param {String} key
+	 * @param {any} el
+	 * @param {Object} options
+	 * @returns {any}
 	 */
 	push(key, el, options = { write: true, pretty: true }) {
 		if (!key || typeof key !== "string")
@@ -149,15 +158,16 @@ module.exports = class Database {
 	}
 
 	/**
-	 * @param { String } key
-	 * @param { any } el
-	 * @param { Object } options
-	 * @returns { Boolean }
+	 * @param {String} key
+	 * @param {any} el
+	 * @param {Object} options
+	 * @returns {Boolean}
 	 */
 	pull(key, el, options = { write: true, pretty: true }) {
 		if (!key || typeof key !== "string")
 			throw new Error("Please specify a valid key!");
-		if (!el) throw new Error("Please specify a valid element to pull!");
+		if (el !== 0 && !el && typeof el !== "boolean")
+			throw new Error("Please specify a valid element to pull!");
 		const data = get(this.#jsonData, key) || [];
 		if (!Array.isArray(data)) throw new Error("The data is not a array!");
 		const newData = data.filter((x) => !x.includes(el));
@@ -166,14 +176,14 @@ module.exports = class Database {
 	}
 
 	/**
-	 * @returns { Object }
+	 * @returns {Object}
 	 */
 	all() {
 		return this.#jsonData;
 	}
 
 	/**
-	 * @returns { Boolean }
+	 * @returns {Boolean}
 	 */
 	clear() {
 		this.#jsonData = {};
@@ -182,11 +192,48 @@ module.exports = class Database {
 	}
 
 	/**
-	 * @returns { Object }
+	 * @returns {Object}
 	 */
 	read() {
 		return JSON.parse(
 			readFileSync(this.#dbFilePath, { encoding: "utf-8" }) || "{}"
 		);
+	}
+
+	/**
+	 * @ignore
+	 * @private
+	 * @returns {Number}
+	 */
+	_get() {
+		const start = Date.now();
+		this.get("arkdb");
+		return Date.now() - start;
+	}
+
+	/**
+	 * @ignore
+	 * @private
+	 * @returns {Number}
+	 */
+	_set() {
+		const start = Date.now();
+		this.set("arkdb", "arkdb");
+		return Date.now() - start;
+	}
+
+	/**
+	 * @returns {Object}
+	 */
+	ping() {
+		const read = this._get();
+		const write = this._set();
+		const average = (read + write) / 2;
+		this.delete("arkdb");
+		return {
+			read: `${read}ms`,
+			write: `${write}ms`,
+			average: `${average}ms`
+		};
 	}
 };

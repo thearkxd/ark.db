@@ -1,7 +1,7 @@
 {
 	"name": "ark.db",
-	"description": "A simple JSON database module.",
-	"version": "2.4.1",
+	"description": "Smallest and fastest JSON database for Node, Electron and browser.",
+	"version": "2.4.2",
 	"main": "src",
 	"keywords": [
 		"json",
@@ -31,7 +31,9 @@
 		"lodash.has": "^4.5.2",
 		"lodash.set": "^4.3.2",
 		"lodash.unset": "^4.5.2",
-		"parent-module": "^2.0.0"
+		"mongoose": "^5.12.9",
+		"parent-module": "^2.0.0",
+		"path": "^0.12.7"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.14.2",

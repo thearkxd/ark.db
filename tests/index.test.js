@@ -1,6 +1,7 @@
 const { expect } = require("chai");
 const { Database } = require("..");
 const db = new Database();
+console.log(db.ping());
 
 describe("Basic Test", () => {
 	it("Should set", (done) => {

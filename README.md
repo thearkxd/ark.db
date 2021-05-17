@@ -1,7 +1,8 @@
 # ark.db
-<img src="https://img.shields.io/npm/v/ark.db?color=%2351F9C0&label=version">
-<img src="https://img.shields.io/npm/dt/ark.db.svg?color=%2351FC0&maxAge=3600">
-<br>
+Small and fast JSON database for Node and browser.
+
+![downloads](http://img.shields.io/npm/dm/ark.db.svg?style=flat) ![version](https://img.shields.io/npm/v/ark.db?color=%2351F9C0&label=version)
+
 <img src="https://nodei.co/npm/ark.db.png?downloads=true&downloadRank=true&stars=true">
 
 # Installation
@@ -25,30 +26,73 @@ Also, if you want to use `ark.db` in browser
 </script> 
 ```
 
-# Why ark.db?
+# Features
 
--   Fastest JSON database module in NPM.
+-   Fast
 -   Lightweight
-
-# Speed
-
-Benchmark results (When 1000 elements are pushed into array);
-
-```
-laark ~/Bench ❯ act -s "node arkdb.js"
-act: The process took 478ms to finish.
-
-laark ~/Bench ❯ act -s "node lowdb.js"
-act: The process took 577ms to finish.
-
-laark ~/Bench ❯ act -s "node wiodb.js"
-act: The process took 871ms to finish.
-
-laark ~/Bench ❯ act -s "node megadb.js"
-act: The process took 541ms to finish.
-```
+-   Easy to use
+-   Simple
+-   Beginner friendly
+-   Dot notation
+-   Relative path support
+-   Browser support
+-   MongoDB support
 
 ## Usage
+
+### MongoDB Usage
+
+```js
+const { MongoDB } = require("ark.db");
+const db = new MongoDB("your mongo connect url", "your schema name");
+
+// To update or set your data;
+await db.set("example", "test"); // -> test
+
+// To get your data;
+await db.get("example"); // -> test
+
+// To delete your data;
+await db.delete("example"); // -> true
+
+// To increase your data;
+await db.add("example", 2); // -> 2
+
+// To decrase your data;
+await db.subtract("example", 1); // -> 1
+
+// To learn database has the data;
+await db.has("example"); // -> true
+
+// To push the data;
+await db.push("example", "test"); // -> "test"
+
+// To pull the data;
+await db.pull("example", "test"); // -> []
+
+// To get all data;
+await db.all();
+
+// To delete all data;
+await db.clear();
+
+// To learn database's uptime;
+db.uptime();
+
+// To change your schema name;
+db.updateModel("new schema name");
+
+// To create a schema;
+db.createSchema("schema name");
+
+// To create a collection;
+db.createCollection("collection name");
+
+// To delete collection you've connected;
+db.dropCollection();
+```
+
+### JSON Database Usage
 
 ```js
 const { Database } = require("ark.db");
@@ -74,16 +118,19 @@ db.subtract("example", 1); // -> 1
 db.has("example"); // -> true
 
 // To push the data;
-db.push("example", { test: "test" }); // -> { test: "test" }
+db.push("example", "test"); // -> "test"
 
 // To pull the data;
-db.pull("example", { test: "test" }); // -> []
+db.pull("example", "test"); // -> []
 
 // To get all data;
 db.all();
 
 // To delete all data;
 db.clear();
+
+// To get database's ping;
+db.ping();
 ```
 
 ## Thanks
@@ -96,9 +143,15 @@ Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https:/
 
 ## Changelog
 
+### 2.4.2
+
+-   Added `MongoDB` adapter.
+-   Added MongoDB support.
+
 ### 2.4.1
 
 -   Added `LocalStorage` adapter.
+-   Added browser support.
 
 ### 2.4.0
 
