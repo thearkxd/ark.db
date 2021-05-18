@@ -76,6 +76,12 @@ await db.all();
 // To delete all data;
 await db.clear();
 
+// To create a collection;
+await db.createCollection("collection name");
+
+// To delete collection you've connected;
+await db.dropCollection();
+
 // To learn database's uptime;
 db.uptime();
 
@@ -85,11 +91,6 @@ db.updateModel("new schema name");
 // To create a schema;
 db.createSchema("schema name");
 
-// To create a collection;
-db.createCollection("collection name");
-
-// To delete collection you've connected;
-db.dropCollection();
 ```
 
 ### JSON Database Usage
@@ -142,6 +143,11 @@ Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https:/
 [Discord Server](https://discord.gg/UEPcFtytcc), [Theark](https://discord.com/users/350976460313329665), [Stark](https://discord.com/users/332926821706498063), [Laark](https://discord.com/users/814919032884428840)
 
 ## Changelog
+
+### 2.4.3
+
+-   Fixed some bugs.
+-   Added `options` parameter while connecting to MongoDB.
 
 ### 2.4.2
 

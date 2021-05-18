@@ -10,10 +10,11 @@ module.exports = class MongoDB extends Base {
 	/**
 	 * @param {String} mongoConnectURL
 	 * @param {String} name
+	 * @param {Object} options
 	 * @constructor
 	 */
-	constructor(mongoConnectURL, name = "arkdb") {
-		super(mongoConnectURL);
+	constructor(mongoConnectURL, name = "arkdb", options = {}) {
+		super(mongoConnectURL, options);
 		this.schema = Schema(this.connection, name);
 	}
 
@@ -22,7 +23,7 @@ module.exports = class MongoDB extends Base {
 	 * @returns {Promise<void>}
 	 */
 	async get(key) {
-		if (!key || typeof key !== "string")
+		if (key || typeof key !== "string")
 			throw new Error("Please specify a valid key!");
 		const arr = key.split(".");
 		const data = await this.schema.findOne({ Key: arr[0] });
@@ -226,9 +227,9 @@ module.exports = class MongoDB extends Base {
 	 * @param {String} dbName
 	 * @returns {MongoDB}
 	 */
-	createDatabase(dbName) {
+	async createDatabase(dbName) {
 		return new MongoDB(
-			this.mongoURL.replace(this.connection.name, dbName),
+			this.mongoURL.replace((await this.connection).name, dbName),
 			this.schema.modelName,
 			this.options
 		);
@@ -238,21 +239,21 @@ module.exports = class MongoDB extends Base {
 	 * @param {String} dbName
 	 * @returns {MongoDB}
 	 */
-	createCollection(dbName) {
-		return this.createDatabase(dbName);
+	async createCollection(dbName) {
+		return await this.createDatabase(dbName);
 	}
 
 	/**
 	 * @returns {Promise<void>}
 	 */
-	dropDatabase() {
-		return this.connection.dropDatabase();
+	async dropDatabase() {
+		return (await this.connection).dropDatabase();
 	}
 
 	/**
 	 * @returns {Promise<void>}
 	 */
-	dropCollection() {
-		return this.dropDatabase();
+	async dropCollection() {
+		return await this.dropDatabase();
 	}
 };
