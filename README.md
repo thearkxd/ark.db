@@ -144,6 +144,10 @@ Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https:/
 
 ## Changelog
 
+### 2.4.4
+
+-   Fixed a bug.
+
 ### 2.4.3
 
 -   Fixed some bugs.

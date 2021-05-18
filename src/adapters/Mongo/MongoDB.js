@@ -23,7 +23,7 @@ module.exports = class MongoDB extends Base {
 	 * @returns {Promise<void>}
 	 */
 	async get(key) {
-		if (key || typeof key !== "string")
+		if (!key || typeof key !== "string")
 			throw new Error("Please specify a valid key!");
 		const arr = key.split(".");
 		const data = await this.schema.findOne({ Key: arr[0] });
