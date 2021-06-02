@@ -144,7 +144,7 @@ Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https:/
 
 ## Changelog
 
-### 2.4.4, 2.4.5
+### 2.4.4, 2.4., 2.4.6
 
 -   Fixed a bug.
 

@@ -75,7 +75,7 @@ module.exports = class Database {
 	set(key, value, options = { write: true, pretty: true }) {
 		if (!key || typeof key !== "string")
 			throw new Error("Please specify a valid key!");
-		if (typeof el !== "boolean" && value !== 0 && !value)
+		if (typeof value !== "boolean" && value !== 0 && !value)
 			throw new Error("Please specify a valid value!");
 		set(this.#jsonData, key, value);
 		if (options.write) this.write(options);

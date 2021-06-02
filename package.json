@@ -1,7 +1,7 @@
 {
 	"name": "ark.db",
 	"description": "Smallest and fastest JSON database for Node, Electron and browser.",
-	"version": "2.4.5",
+	"version": "2.4.6",
 	"main": "src",
 	"keywords": [
 		"json",
