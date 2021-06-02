@@ -20,7 +20,7 @@ yarn add ark.db
 Also, if you want to use `ark.db` in browser
 
 ```html
-<script src="https://unpkg.com/ark.db@2.4.1/dist/LocalStorage.min.js"></script>
+<script src="https://unpkg.com/ark.db@2.4.5/dist/LocalStorage.min.js"></script>
 <script>
   const db = new LocalStorage();
 </script> 
@@ -144,7 +144,7 @@ Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https:/
 
 ## Changelog
 
-### 2.4.4
+### 2.4.4, 2.4.5
 
 -   Fixed a bug.
 
