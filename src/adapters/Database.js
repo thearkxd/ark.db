@@ -2,7 +2,7 @@
 
 const { existsSync, writeFileSync, readFileSync } = require("graceful-fs");
 const parentModule = require("parent-module");
-const path = require("path");
+const { isAbsolute, dirname, sep } = require("path");
 const {
 	absolute,
 	lodash: { get, has, set, unset }
@@ -30,9 +30,9 @@ module.exports = class Database {
 			throw new Error("Please specify a valid database name!");
 		file = file.endsWith(".json") ? file : `${file}.json`;
 		this.#dbFilePath =
-			file === "arkdb.json" || path.isAbsolute(file)
-				? `${process.cwd()}/${file}`
-				: absolute(path.dirname(parentModule()) + "/", file);
+			file === "arkdb.json" || isAbsolute(file)
+				? process.cwd() + sep + file
+				: absolute(dirname(parentModule()) + sep, file);
 		this.#jsonData = {};
 		if (existsSync(this.#dbFilePath)) this.#jsonData = this.read();
 		else writeFileSync(this.#dbFilePath, "{}", "utf-8");
