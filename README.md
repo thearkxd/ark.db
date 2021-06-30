@@ -1,7 +1,7 @@
 # ark.db
 Small and fast JSON database for Node and browser.
 
-![downloads](http://img.shields.io/npm/dm/ark.db.svg?style=flat) ![version](https://img.shields.io/npm/v/ark.db?color=%2351F9C0&label=version)
+![downloads](https://img.shields.io/npm/dt/ark.db) ![version](https://img.shields.io/npm/v/ark.db?color=%2351F9C0&label=version)
 
 <img src="https://nodei.co/npm/ark.db.png?downloads=true&downloadRank=true&stars=true">
 
