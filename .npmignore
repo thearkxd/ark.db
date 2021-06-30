@@ -10,3 +10,5 @@ test
 .idea
 yarn.lock
 arkdb.json
+webpack.config.ts
+webpack.config.js

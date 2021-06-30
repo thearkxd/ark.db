@@ -14,7 +14,7 @@
 		"starkxd"
 	],
 	"scripts": {
-		"test": "mocha tests/*.test.js",
+		"test": "npm build && mocha tests/*.test.js",
 		"format": "prettier --write .",
 		"build": "tsc",
 		"webpack": "webpack --mode production",
