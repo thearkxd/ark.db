@@ -144,6 +144,9 @@ Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https:/
 
 ## Changelog
 
+### 2.6.1
+-   Fixed a bug.
+
 ### 2.6.0
 -   TypeScript rewrite.
 

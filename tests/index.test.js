@@ -1,8 +1,8 @@
 "use strict";
 exports.__esModule = true;
 var chai_1 = require("chai");
-var __1 = require("..");
-var db = new __1.Database();
+var src_1 = require("../dist");
+var db = new src_1.Database();
 console.log(db.ping());
 describe("Basic Test", function () {
     it("Should set", function (done) {
