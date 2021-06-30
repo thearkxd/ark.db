@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es5",
+    "baseUrl": "./dist",
+    "incremental": true,
+    "strict": true,
+    "typeRoots": [
+      "node_modules/@types",
+      "src/@types"
+    ],
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "node_modules"
+  ]
+}

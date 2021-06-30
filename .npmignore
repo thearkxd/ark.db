@@ -1,6 +1,12 @@
+src
+.eslintrc
+.gitignore
+.npmignore
+.prettierrc
 /node_modules
 /*.log
 database.json
 test
 .idea
 yarn.lock
+arkdb.json
