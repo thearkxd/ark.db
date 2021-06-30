@@ -7,3 +7,4 @@ database.json
 *.swp
 arkdb.json
 dist
+/*.log

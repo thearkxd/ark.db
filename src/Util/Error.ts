@@ -1,10 +1,7 @@
-const chalk = require("chalk");
+import chalk from "chalk";
 
-module.exports = class DatabaseError extends Error {
-	/**
-	 * @param { String } message
-	 */
-	constructor(message) {
+export class DatabaseError extends Error {
+	constructor(message: string) {
 		super(
 			chalk.red(
 				message +
@@ -13,4 +10,4 @@ module.exports = class DatabaseError extends Error {
 		);
 		this.name = "DatabaseError";
 	}
-};
+}
