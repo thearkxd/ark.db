@@ -27,7 +27,7 @@ export class MongoDB extends Base {
 		if (!data) return null;
 		if (arr.length > 1) {
 			if (data.Value && typeof data.Value === "object")
-				return get(data.Value, arr[arr.length - 1]);
+				return get(data.Value, arr.slice(1).join("."));
 			return null;
 		}
 		return data.Value;

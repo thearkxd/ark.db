@@ -136,15 +136,15 @@ db.ping();
 
 ## Thanks
 
-Thanks to [Stark](https://discord.com/users/332926821706498063), [Laark](https://discord.com/users/814919032884428840) and [hmal](https://discord.com/users/337967184070311936) for his/her helpings.
+Thanks to [Stark](https://discord.com/users/332926821706498063) and [hmal](https://discord.com/users/337967184070311936) for his helpings.
 
 ## Contact
 
-[Discord Server](https://discord.gg/UEPcFtytcc), [Theark](https://discord.com/users/350976460313329665), [Stark](https://discord.com/users/332926821706498063), [Laark](https://discord.com/users/814919032884428840)
+[Discord Server](https://discord.gg/UEPcFtytcc), [Theark](https://discord.com/users/350976460313329665), [Stark](https://discord.com/users/332926821706498063)
 
 ## Changelog
 
-### 2.6.1
+### 2.6.1, 2.6.2, 2.6.3, 2.6.4, 2.6.5, 2.6.6, 2.6.7, 2.6.8
 -   Fixed a bug.
 
 ### 2.6.0
