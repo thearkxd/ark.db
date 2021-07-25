@@ -43,7 +43,7 @@ export class MongoDB extends Base {
 		const data = await this.schema.findOne({ Key: arr[0] });
 		if (arr.length > 1) {
 			if (data.Value && typeof data.Value === "object")
-				return has(data.Value, arr[arr.length - 1]);
+				return !!(await this.get(key));
 		} else return !!data;
 	}
 
