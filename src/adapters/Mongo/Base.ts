@@ -1,7 +1,7 @@
 import { DatabaseError } from "../../Util/Error";
 import { EventEmitter } from "events";
 import mongoose, { Connection } from "mongoose";
-import { MongoOptions } from "../../@types/types";
+import { MongoOptions } from "../../types/types";
 
 export abstract class Base extends EventEmitter {
 	mongoURL: string;

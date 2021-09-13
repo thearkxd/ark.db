@@ -1,5 +1,5 @@
 import { Schema, Connection } from "mongoose";
-import { MongoModel } from "../../@types/types";
+import { MongoModel } from "../../types/types";
 
 const DefaultSchema = new Schema<MongoModel>({
 	Key: {

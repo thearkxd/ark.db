@@ -1,5 +1,5 @@
 import { sep } from "path";
-import { ParsedObject } from "../@types/types";
+import { ParsedObject } from "../types/types";
 
 export const absolute = (base: string, rel: string): string => {
 	const st = base.split(sep);

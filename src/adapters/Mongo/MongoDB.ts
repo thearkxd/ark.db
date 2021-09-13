@@ -1,11 +1,11 @@
 "use strict";
 
 import { parseObject } from "../../Util";
-import { set, get, has, unset } from "../../Util/lodash";
+import { set, get, unset } from "../../Util/lodash";
 import { DatabaseError } from "../../Util/Error";
 import { Base } from "./Base";
 import schema from "./Schema";
-import { MongoModel, MongoOptions } from "../../@types/types";
+import { MongoModel, MongoOptions } from "../../types/types";
 import { Connection } from "mongoose";
 
 export class MongoDB extends Base {
@@ -163,11 +163,11 @@ export class MongoDB extends Base {
 		return await this.createDatabase(dbName);
 	}
 
-	async dropDatabase(): Promise<void> {
+	public async dropDatabase(): Promise<void> {
 		return (await this.connection).dropDatabase();
 	}
 
-	async dropCollection(): Promise<void> {
+	public async dropCollection(): Promise<void> {
 		return await this.dropDatabase();
 	}
 }

@@ -144,6 +144,9 @@ Thanks to [Stark](https://discord.com/users/332926821706498063) and [hmal](https
 
 ## Changelog
 
+### 2.7.0
+-   Some fixes.
+
 ### 2.6.1, 2.6.2, 2.6.3, 2.6.4, 2.6.5, 2.6.6, 2.6.7, 2.6.8, 2.6.9
 -   Fixed a bug.
 
