@@ -1,8 +1,4 @@
 import { expect } from "chai";
-import { Database } from "../dist";
-
-const db = new Database();
-console.log(db.ping());
 
 describe("Basic Test", () => {
 	it("Should set", (done: any) => {

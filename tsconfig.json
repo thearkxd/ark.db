@@ -1,23 +1,18 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es6",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "baseUrl": "./dist",
-    "incremental": true,
-    "strict": true,
-    "typeRoots": [
-      "node_modules/@types",
-      "src/types"
-    ],
-    "skipLibCheck": true
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": [
-    "node_modules"
-  ]
+	"compilerOptions": {
+		"module": "commonjs",
+		"outDir": "./dist/",
+		"sourceMap": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "es6",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"baseUrl": "./dist",
+		"incremental": true,
+		"strict": true,
+		"typeRoots": ["node_modules/@types", "src/types"],
+		"skipLibCheck": true
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules"]
 }

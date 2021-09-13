@@ -1,4 +1,5 @@
 # ark.db
+
 Small and fast JSON database for Node and browser.
 
 ![downloads](https://img.shields.io/npm/dt/ark.db) ![version](https://img.shields.io/npm/v/ark.db?color=%2351F9C0&label=version)
@@ -6,7 +7,9 @@ Small and fast JSON database for Node and browser.
 <img src="https://nodei.co/npm/ark.db.png?downloads=true&downloadRank=true&stars=true">
 
 # Installation
+
 **Warning:** `ark.db` is requires node.js version greater than 12!
+
 ```
 npm i ark.db
 ```
@@ -22,8 +25,8 @@ Also, if you want to use `ark.db` in browser
 ```html
 <script src="https://unpkg.com/ark.db@2.6.0/dist/LocalStorage.min.js"></script>
 <script>
-  const db = new LocalStorage();
-</script> 
+	const db = new LocalStorage();
+</script>
 ```
 
 # Features
@@ -90,7 +93,6 @@ db.updateModel("new schema name");
 
 // To create a schema;
 db.createSchema("schema name");
-
 ```
 
 ### JSON Database Usage
@@ -144,13 +146,16 @@ Thanks to [Stark](https://discord.com/users/332926821706498063) and [hmal](https
 
 ## Changelog
 
-### 2.7.0
+### 2.7.0, 2.7.1
+
 -   Some fixes.
 
 ### 2.6.1, 2.6.2, 2.6.3, 2.6.4, 2.6.5, 2.6.6, 2.6.7, 2.6.8, 2.6.9
+
 -   Fixed a bug.
 
 ### 2.6.0
+
 -   TypeScript rewrite.
 
 ### 2.4.4, 2.4., 2.4.6, 2.5.0
