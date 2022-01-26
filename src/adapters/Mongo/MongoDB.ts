@@ -23,7 +23,7 @@ export class MongoDB extends Base {
 	public async get(key: string): Promise<any> {
 		if (!key) throw new DatabaseError("Please specify a valid key!");
 		const arr = key.split(".");
-		const data = await this.schema.findOne({ Key: arr[0] });
+		const data = await this.schema.findOne({ Key: arr[0] }).exec(;
 		if (!data) return null;
 		if (arr.length > 1) {
 			if (data.Value && typeof data.Value === "object")
@@ -40,7 +40,7 @@ export class MongoDB extends Base {
 	public async has(key: string): Promise<boolean | undefined> {
 		if (!key) throw new DatabaseError("Please specify a valid key!");
 		const arr = key.split(".");
-		const data = await this.schema.findOne({ Key: arr[0] });
+		const data = await this.schema.findOne({ Key: arr[0] }).exec();
 		if (arr.length > 1) {
 			if (data.Value && typeof data.Value === "object")
 				return !!(await this.get(key));
@@ -61,7 +61,7 @@ export class MongoDB extends Base {
 	public async delete(key: string): Promise<boolean> {
 		if (!key) throw new DatabaseError("Please specify a valid key!");
 		const arr = key.split(".");
-		const data = await this.schema.findOne({ Key: arr[0] });
+		const data = await this.schema.findOne({ Key: arr[0] }).exec();
 		if (!data) return false;
 		if (data.Value && typeof data.Value === "object") {
 			const newData = unset(data.Value, arr[arr.length - 1]);
@@ -114,7 +114,7 @@ export class MongoDB extends Base {
 	}
 
 	public async all(): Promise<MongoModel> {
-		return this.schema.find({});
+		return this.schema.find({}).exec();
 	}
 
 	public async clear(): Promise<MongoModel> {
@@ -140,8 +140,7 @@ export class MongoDB extends Base {
 	}
 
 	public createModel(name: string): MongoDB {
-		if (!name)
-			throw new DatabaseError("Please provide a valid model name!");
+		if (!name) throw new DatabaseError("Please provide a valid model name!");
 		return new MongoDB(this.mongoURL, name, this.options);
 	}
 
