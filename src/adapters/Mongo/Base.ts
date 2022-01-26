@@ -33,16 +33,18 @@ export abstract class Base extends EventEmitter {
 				"Please specify a valid Mongo connect URL!"
 			);
 		this.mongoURL = mongoURL;
-		delete this.options.useCreateIndex;
 		delete this.options.useNewUrlParser;
-		delete this.options.useUnifiedTopology;
-		delete this.options.useFindAndModify;
+		delete this.options.autoIndex;
+		delete this.options.family;
+		delete this.options.noDelay;
+		delete this.options.autoCreate;
 		return mongoose.createConnection(this.mongoURL, {
 			...this.options,
-			useCreateIndex: true,
 			useNewUrlParser: true,
-			useUnifiedTopology: true,
-			useFindAndModify: false
+			autoIndex: true,
+     			family: 4,
+      			noDelay: true,
+      			autoCreate: true
 		});
 	}
 
