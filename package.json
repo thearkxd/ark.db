@@ -30,13 +30,13 @@
 	"license": "MIT",
 	"dependencies": {
 		"chalk": "^4.1.1",
-		"graceful-fs": "^4.2.6",
+		"graceful-fs": "^4.2.9",
 		"lodash.get": "^4.4.2",
 		"lodash.has": "^4.5.2",
 		"lodash.set": "^4.3.2",
 		"lodash.unset": "^4.5.2",
-		"mongoose": "^5.12.9",
-		"parent-module": "^2.0.0",
+		"mongoose": "^6.1.8",
+		"parent-module": "^3.0.0",
 		"path": "^0.12.7"
 	},
 	"devDependencies": {
